@@ -12,17 +12,16 @@
 -- Passwords are BCrypt-hashed (compatible with Spring Security's
 -- BCryptPasswordEncoder). Plaintext is given above for local testing only.
 -- ---------------------------------------------
-INSERT INTO users (id, username, email, password, role, created_at) VALUES
+INSERT IGNORE INTO users (id, username, email, password, role, created_at) VALUES
 (1, 'admin', 'admin@buzzword.com', '$2a$10$J10g33U8YD1RNRT9K0Z8b.nhUJz3RZcuf/qEgItPgZWFNdfZfwddu', 'ADMIN', NOW()),
 (2, 'jdoe',  'jdoe@buzzword.com',  '$2a$10$spBh.72kpjZB/NE.AyTMd.HzRn1yaA8ouI.HAOlJZv7NoXlBIOS8u', 'USER',  NOW()),
-(3, 'asmith','asmith@buzzword.com','$2a$10$spBh.72kpjZB/NE.AyTMd.HzRn1yaA8ouI.HAOlJZv7NoXlBIOS8u', 'USER',  NOW())
-ON CONFLICT (id) DO NOTHING;
+(3, 'asmith','asmith@buzzword.com','$2a$10$spBh.72kpjZB/NE.AyTMd.HzRn1yaA8ouI.HAOlJZv7NoXlBIOS8u', 'USER',  NOW());
 
 -- ---------------------------------------------
 -- Resources ("products") — 3 dummy entries covering
 -- different ResourceCategory values from the requirements doc
 -- ---------------------------------------------
-INSERT INTO resources (id, title, description, url, category, added_by, created_at, updated_at) VALUES
+INSERT IGNORE INTO resources (id, title, description, url, category, added_by, created_at, updated_at) VALUES
 (1, 'Clean Code: A Handbook of Agile Software Craftsmanship',
     'Open-source-adjacent reference book on writing maintainable, readable code. Widely used as an internal onboarding reference.',
     'https://www.oreilly.com/library/view/clean-code/9780136083238/',
@@ -86,15 +85,13 @@ INSERT INTO resources (id, title, description, url, category, added_by, created_
 (13, 'Git Version Control Book',
     'Pro Git book covering simple and complex branching, merging, configuration, internals, and CLI workflows.',
     'https://git-scm.com/book/en/v2',
-    'TOOL', 1, NOW(), NOW())
-ON CONFLICT (id) DO NOTHING;
+    'TOOL', 1, NOW(), NOW());
 
 -- ---------------------------------------------
 -- Comments — a couple of sample comments per resource
 -- ---------------------------------------------
-INSERT INTO comments (id, content, resource_id, user_id, created_at, updated_at) VALUES
+INSERT IGNORE INTO comments (id, content, resource_id, user_id, created_at, updated_at) VALUES
 (1, 'Great refresher for new hires — recommend pairing this with our internal style guide.', 1, 2, NOW(), NOW()),
 (2, 'Some of the examples feel dated (pre-Java 8), but the core principles still hold up.', 1, 3, NOW(), NOW()),
 (3, 'We adopted most of this for our microservices checklist. Config-via-env-vars section is especially relevant.', 2, 1, NOW(), NOW()),
-(4, 'Linked this in the new-service template repo so it shows up automatically for new teams.', 3, 1, NOW(), NOW())
-ON CONFLICT (id) DO NOTHING;
+(4, 'Linked this in the new-service template repo so it shows up automatically for new teams.', 3, 1, NOW(), NOW());

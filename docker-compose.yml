@@ -1,19 +1,18 @@
 version: '3.8'
 
 services:
-  postgres-db:
-    image: postgres:15-alpine
-    container_name: osls-postgres
+  mysql-db:
+    image: mysql:8.0
+    container_name: osls-mysql
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: osls_db
+      MYSQL_ROOT_PASSWORD: utkarsh123
+      MYSQL_DATABASE: osls_db
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d osls_db"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-putkarsh123"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -25,15 +24,14 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - DB_HOST=postgres-db
-      - DB_PORT=5432
-      - DB_USERNAME=postgres
-      - DB_PASSWORD=postgres
-      - DB_DATABASE=osls_db
+      - DB_HOST=mysql-db
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=utkarsh123
     depends_on:
-      postgres-db:
+      mysql-db:
         condition: service_healthy
     restart: on-failure
 
 volumes:
-  postgres_data:
+  mysql_data:
