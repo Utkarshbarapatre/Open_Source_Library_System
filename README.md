@@ -167,3 +167,16 @@ To build and run the entire application stack (the Spring Boot app and MySQL dat
    ```bash
    docker-compose down -v
    ```
+
+---
+
+## Render Deployment (Blueprint)
+
+This repository includes a `render.yaml` file to deploy the entire stack on Render in one go:
+
+1. Log in to [Render.com](https://render.com/).
+2. Click **New +** -> **Blueprint**.
+3. Select your GitHub repository.
+4. Render will automatically configure the private MySQL container (with persistent disk) and the Spring Boot Web Service.
+5. Click **Approve** to deploy both services.
+

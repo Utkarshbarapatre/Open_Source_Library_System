@@ -1,0 +1,30 @@
+services:
+  # MySQL Database Service (Private Service)
+  - type: pservice
+    name: osls-mysql
+    image: mysql:8.0
+    disk:
+      name: mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+    envVars:
+      - key: MYSQL_DATABASE
+        value: osls_db
+      - key: MYSQL_ROOT_PASSWORD
+        value: utkarsh123
+
+  # Spring Boot Application Service (Web Service)
+  - type: web
+    name: osls-app
+    env: docker
+    dockerfilePath: Dockerfile
+    plan: free # App can run on Free tier, but Database requires Starter tier for the disk
+    envVars:
+      - key: DB_HOST
+        value: osls-mysql
+      - key: DB_PORT
+        value: 3306
+      - key: DB_USERNAME
+        value: root
+      - key: DB_PASSWORD
+        value: utkarsh123
