@@ -1,0 +1,32 @@
+# Maven build output
+target/
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Environment variables (secret credentials)
+.env
+.env.local
+.env.*.local
+
+# IDEs and Editors
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+.history/
+.classpath
+.project
+.settings/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS metadata
+Thumbs.db
+.DS_Store
+Desktop.ini

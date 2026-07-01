@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: osls-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: utkarsh123
+      MYSQL_DATABASE: osls_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-putkarsh123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+
+  app:
+    build: .
+    container_name: osls-app
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=mysql-db
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_PASSWORD=utkarsh123
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    restart: on-failure
+
+volumes:
+  mysql_data:

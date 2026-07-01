@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource — OSLS</title>
+    <meta name="description" content="Add, edit, and view resource details with comments.">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="brand">OSLS <span>Library</span></div>
+    <div class="nav-links">
+        <a href="/dashboard.html" id="nav-dashboard">Dashboard</a>
+        <a href="/resource.html" id="nav-add">Add Resource</a>
+        <a href="/admin.html" id="nav-admin" style="display:none">Admin</a>
+    </div>
+    <div class="nav-user">
+        <span>Welcome, <span class="username" id="nav-username">—</span></span>
+        <button class="btn btn-ghost btn-sm" onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+<!-- Add / Edit Resource Form -->
+<div class="resource-detail" id="add-edit-section">
+    <a href="/dashboard.html" class="back-link">&#8592; Back to Dashboard</a>
+    <div class="card">
+        <div class="modal-header">
+            <h3 id="form-title">Add New Resource</h3>
+        </div>
+        <div class="error-msg" id="form-error"></div>
+
+        <input type="hidden" id="resource-id">
+
+        <div class="form-group">
+            <label for="r-title">Title *</label>
+            <input type="text" id="r-title" class="form-control" placeholder="Resource title">
+        </div>
+        <div class="form-group">
+            <label for="r-url">URL *</label>
+            <input type="url" id="r-url" class="form-control" placeholder="https://example.com/resource">
+        </div>
+        <div class="form-group">
+            <label for="r-category">Category *</label>
+            <select id="r-category" class="form-control">
+                <option value="">Select a category</option>
+                <option value="BOOK">Book</option>
+                <option value="WHITEPAPER">Whitepaper</option>
+                <option value="STANDARD">Standard</option>
+                <option value="LEGAL">Legal</option>
+                <option value="TOOL">Tool</option>
+                <option value="WEBSITE">Website</option>
+                <option value="OTHER">Other</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="r-description">Description</label>
+            <textarea id="r-description" class="form-control" placeholder="Brief description of this resource..."></textarea>
+        </div>
+        <div style="display:flex;gap:0.6rem;flex-wrap:wrap;">
+            <button class="btn btn-primary" id="btn-save" onclick="saveResource()">Save Resource</button>
+            <button class="btn btn-ghost" onclick="window.location.href='/dashboard.html'">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Resource Detail View -->
+<div class="resource-detail" id="detail-section" style="display:none">
+    <a href="/dashboard.html" class="back-link">&#8592; Back to Dashboard</a>
+
+    <div class="resource-info" id="resource-info-box">
+        <div class="loading-overlay"><div class="spinner"></div></div>
+    </div>
+
+    <div class="comments-section">
+        <h3>Comments <span id="comment-count" style="color:var(--text-muted);font-weight:400;font-size:0.9rem;"></span></h3>
+        <div class="comment-form">
+            <textarea id="comment-input" placeholder="Write a comment..."></textarea>
+            <button class="btn btn-primary" style="align-self:flex-end" onclick="postComment()">Post</button>
+        </div>
+        <div id="comments-list"></div>
+    </div>
+</div>
+
+<!-- Edit Comment Modal -->
+<div class="modal-overlay" id="edit-comment-modal">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Edit Comment</h3>
+            <button class="modal-close" onclick="closeEditCommentModal()">&#10005;</button>
+        </div>
+        <div class="form-group">
+            <label for="edit-comment-input">Comment</label>
+            <textarea id="edit-comment-input" class="form-control" style="min-height:80px;"></textarea>
+        </div>
+        <div style="display:flex;gap:0.6rem;">
+            <button class="btn btn-primary" onclick="submitEditComment()">Update</button>
+            <button class="btn btn-ghost" onclick="closeEditCommentModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/js/api.js"></script>
+<script src="/js/resource.js"></script>
+</body>
+</html>

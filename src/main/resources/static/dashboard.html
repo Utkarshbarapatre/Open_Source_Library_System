@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — OSLS</title>
+    <meta name="description" content="Browse and search open-source resources shared by your team.">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="brand">OSLS <span>Library</span></div>
+    <div class="nav-links">
+        <a href="/dashboard.html" class="active" id="nav-dashboard">Dashboard</a>
+        <a href="/resource.html" id="nav-add">Add Resource</a>
+        <a href="/admin.html" id="nav-admin" style="display:none">Admin</a>
+    </div>
+    <div class="nav-user">
+        <span>Welcome, <span class="username" id="nav-username">—</span></span>
+        <button class="btn btn-ghost btn-sm" onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <h2>Resource Library</h2>
+        <button class="btn btn-primary" onclick="window.location.href='/resource.html'">+ Add Resource</button>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="&#128269; Search by title, description, or contributor..." oninput="debounceSearch()">
+        <select id="category-filter" onchange="loadResources()">
+            <option value="">All Categories</option>
+            <option value="BOOK">Book</option>
+            <option value="WHITEPAPER">Whitepaper</option>
+            <option value="STANDARD">Standard</option>
+            <option value="LEGAL">Legal</option>
+            <option value="TOOL">Tool</option>
+            <option value="WEBSITE">Website</option>
+            <option value="OTHER">Other</option>
+        </select>
+        <button class="btn btn-outline btn-sm" onclick="clearSearch()">Clear</button>
+    </div>
+
+    <div id="results-count" style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;"></div>
+
+    <div id="resources-container">
+        <div class="loading-overlay"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/js/api.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

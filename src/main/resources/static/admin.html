@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — OSLS</title>
+    <meta name="description" content="Admin panel for managing users, resources, and comments in OSLS.">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="brand">OSLS <span>Admin</span></div>
+    <div class="nav-links">
+        <a href="/dashboard.html" id="nav-dashboard">Dashboard</a>
+        <a href="/resource.html">Add Resource</a>
+        <a href="/admin.html" class="active">Admin</a>
+    </div>
+    <div class="nav-user">
+        <span>Welcome, <span class="username" id="nav-username">—</span></span>
+        <button class="btn btn-ghost btn-sm" onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="page-header">
+        <h2>Admin Panel</h2>
+        <span style="font-size:0.82rem;color:var(--text-muted);">Manage all users, resources, and comments</span>
+    </div>
+
+    <div class="admin-tabs">
+        <button class="admin-tab active" id="tab-users" onclick="switchAdminTab('users')">Users</button>
+        <button class="admin-tab" id="tab-resources" onclick="switchAdminTab('resources')">Resources</button>
+    </div>
+
+    <!-- Users Panel -->
+    <div class="admin-panel active" id="panel-users">
+        <div class="card" style="padding:0;overflow:hidden;">
+            <div id="users-table-container">
+                <div class="loading-overlay"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resources Panel -->
+    <div class="admin-panel" id="panel-resources">
+        <div class="card" style="padding:0;overflow:hidden;">
+            <div id="resources-table-container">
+                <div class="loading-overlay"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script src="/js/api.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>
