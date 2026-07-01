@@ -5,14 +5,14 @@ services:
     image: mysql:8.0
     container_name: osls-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: utkarsh123
+      MYSQL_ROOT_PASSWORD: my-secret-pwd
       MYSQL_DATABASE: osls_db
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-putkarsh123"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pmy-secret-pwd"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -27,7 +27,7 @@ services:
       - DB_HOST=mysql-db
       - DB_PORT=3306
       - DB_USERNAME=root
-      - DB_PASSWORD=utkarsh123
+      - DB_PASSWORD=my-secret-pwd
     depends_on:
       mysql-db:
         condition: service_healthy
